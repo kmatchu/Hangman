@@ -1,0 +1,11 @@
+.hide {
+    display: none;
+}
+
+.box {
+    border: solid black 1px;
+}
+
+.invis {
+    visibility: hidden;
+}

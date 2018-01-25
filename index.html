@@ -1,12 +1,174 @@
 <!DOCTYPE html>
 <html>
-<head>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-<link rel="stylesheet" href="assets/css/style.css" />
-<script src="assets/javascript/game.js"></script>
-</head>
-<body>
 
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="row navigation">
+            <div class="col-md-12">
+                <h2>Welcome to hangman! Press any key to start. The next press will be your first guess!</h2>
+            </div>
+        </div>
+        <div class="row guesscount">
+            <div class="col-md-6 col-md-offset-3">
+                <img src="assets/images/one.png" alt="One guess left" class="one hide" />
+                <img src="assets/images/two.png" alt="Two guesses left" class="two hide" />
+                <img src="assets/images/three.png" alt="Three guesses left" class="three hide" />
+                <img src="assets/images/four.png" alt="Four guesses left" class="four hide" />
+                <img src="assets/images/five.png" alt="Five guesses left" class="five hide" />
+                <img src="assets/images/lose.png" alt="You lost" class="lost hide" />
+                <img src="assets/images/win.png" alt="You won" class="won hide" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-1 col-md-offset-3 answer0 invis"></div>
+            <div class="col-md-1 answer1 invis">21</div>
+            <div class="col-md-1 answer2 invis"></div>
+            <div class="col-md-1 answer3 invis"></div>
+            <div class="col-md-1 answer4 invis"></div>
+            <div class="col-md-1 answer5 invis"></div>
+            <div class="col-md-1 answer6 invis"></div>
+            <div class="col-md-1 answer7 invis"></div>
+            <div class="col-md-1 answer8 invis"></div>
+        </div>
+        <div class="row underline">
+            <div class="col-md-1 col-md-offset-3 line0"></div>
+            <div class="col-md-1 line1"></div>
+            <div class="col-md-1 line2"></div>
+            <div class="col-md-1 line3"></div>
+            <div class="col-md-1 line4"></div>
+            <div class="col-md-1 line5"></div>
+            <div class="col-md-1 line6"></div>
+            <div class="col-md-1 line7"></div>
+            <div class="col-md-1 line8"></div>
+        </div>
+        <br />
+        <div class="row guesses">
+            <div class="col-md-1 col-md-offset-3 guess0 box">s</div>
+            <div class="col-md-1 guess1 box">s</div>
+            <div class="col-md-1 guess2 box">s</div>
+            <div class="col-md-1 guess3 box">s</div>
+            <div class="col-md-1 guess4 box">s</div>
+            <div class="col-md-1 guess5 box">s</div>
+            <div class="col-md-1 guess6 box">s</div>
+            <div class="col-md-1 guess7 box">s</div>
+            <div class="col-md-1 guess8 box">s</div>
+        </div>
+
+
+
+
+    </div>
+
+    <script src="assets/javascript/game.js"></script>
+    <script>
+        var blankline = [];
+        var guesses = [];
+        var letters = [];
+        var answers = ["alligator", "elephant", "giraffe", "hippo", "kangaroo", "lion", "monkey", "rhino", "snake", "zebra"];
+        var selection = answers[Math.floor(Math.random() * 10)];
+        letters = selection.split("");
+        console.log(letters);
+
+        var begin = function () {
+            var guesscount = 0;
+
+            var run = function () {
+                for (i = 0; i < letters.length; i++) {
+                    aClass = "answer" + i;
+                    document.getElementsByClassName(aClass).innerText = letters[i];
+                }
+
+                for (i = 0; i < letters.length; i++) {
+                    lClass = "line" + i;
+                    document.getElementsByClassName("line1").innerText = "_";
+                }
+            }
+            run();
+            // for (i = 0; i < letters.length; i++){
+            //     thisguess = document.addEventListener("keypress", checker(event));
+
+
+
+            //     gClass = "guess" + i;
+            //     document.getElementsByClassName(lClass).innerText = guess[i];
+            // }
+
+
+            // var checker = function (event) {
+            //     console.log(event.keyCode);
+            //     var thisguess = event.keyCode;
+            //     if (letters.includes(thisguess)) {
+
+            //         guesses.push(thisguess);
+            //         console.log(guesses);
+            //     }
+            //     else {
+            //         guesses.push(thisguess);
+            //         console.log(guesses);
+            //     }
+            // }
+
+
+
+
+
+
+
+
+
+            if (win === true) {
+                document.querySelector(".won").classList.remove("hide");
+            }
+            else if (guesscount === 0) {
+                document.querySelector(".five").classList.remove("hide");
+                document.querySelector(".lost").classList.add("hide");
+                document.querySelector(".won").classList.add("hide");
+            }
+            else if (guesscount === 1) {
+                document.querySelector(".five").classList.add("hide");
+                document.querySelector(".four").classList.remove("hide");
+            }
+            else if (guesscount === 2) {
+                document.querySelector(".four").classList.add("hide");
+                document.querySelector(".three").classList.remove("hide");
+            }
+            else if (guesscount === 3) {
+                document.querySelector(".three").classList.add("hide");
+                document.querySelector(".two").classList.remove("hide");
+            }
+            else if (guesscount === 4) {
+                document.querySelector(".two").classList.add("hide");
+                document.querySelector(".one").classList.remove("hide");
+            }
+            else if (guesscount === 5 && win === false) {
+                document.querySelector(".one").classList.add("hide");
+                document.querySelector(".lost").classList.remove("hide");
+            }
+            
+            }
+            else { }
+        }
+        document.addEventListener("keypress", begin);
+
+
+// TODO: fill html divs with text from JS for answer, line, and guess
+//         save user key press, compare unicode value vs array of letters to check for match.
+//         if match, find class .answeri and remove invis class. process duplicate guesses as a match. add guess to guesses array
+//         if no match, add guess to guesses array. increment guesscount
+//         if querySelector cannot find any items in class invis, then set win = true.  
+//         send JS to separate file
+//         display image of relevant animal guessed upon win
+
+
+
+
+    </script>
 </body>
 
 </html>
